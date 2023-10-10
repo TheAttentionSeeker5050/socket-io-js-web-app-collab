@@ -4,6 +4,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV == 'production';
 
@@ -23,31 +24,53 @@ const config = {
         publicPath: '/',
         clean: true,
     },
+    plugins: [
+        // new HtmlWebpackPlugin({
+        //     template: 'index.html',
+        // }),
+
+        // Add your plugins here
+        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+        new CopyWebpackPlugin({
+            patterns: [
+                // copies all assets in the lib/ folder (images, etc) to /build (in case not imported manually via SCSS or CSS or JS). Any images referenced in SASS or CSS via url() or imported directly with js will be copied over automatically to /build root and given distinct filename - a little redundant :(
+                {from:'lib/', to:'', noErrorOnMissing: true},
+                // copies HTML file to /build
+                {from:'html/index.html', to:'index.html'},
+                {from:'html/error-404.html', to:'error-404.html'},
+            ]
+        })
+    ],
     devServer: {
         // open: true,
         // host: 'localhost',
         static: {
             directory: path.join(__dirname, 'build'),
         },
-        devMiddleware: {
-            publicPath: '/',
-            writeToDisk: true,
-        },
-        port: 3000,
+        // devMiddleware: {
+        //     publicPath: '/',
+        //     writeToDisk: true,
+        // },
+        onAfterSetupMiddleware: function (devServer) {
+            const app = devServer.app;
+            app.get('/', function (req, res) {
+              res.sendFile(path.join(__dirname, 'dist/index.html'));
+            });
+            // ... more routes
+            app.get('*', function (req, res) {
+              res.sendFile(path.join(__dirname, 'dist/error-404.html'));
+            });
+          },
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: 'index.html',
-        }),
-
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-    ],
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/i,
                 loader: 'babel-loader',
+            },
+            {
+                test: /\.html$/i,
+                loader: 'html-loader',
             },
             {
                 test: /\.s[ac]ss$/i,
