@@ -14,12 +14,26 @@ const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader
 
 const config = {
     entry: './src/index.js',
+    // output: {
+    //     path: path.resolve(__dirname, 'dist'),
+    // },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.join(__dirname, 'build'),
+        filename: 'bundle.js',
+        publicPath: '/',
+        clean: true,
     },
     devServer: {
-        open: true,
-        host: 'localhost',
+        // open: true,
+        // host: 'localhost',
+        static: {
+            directory: path.join(__dirname, 'build'),
+        },
+        devMiddleware: {
+            publicPath: '/',
+            writeToDisk: true,
+        },
+        port: 3000,
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -37,7 +51,7 @@ const config = {
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: [stylesHandler, 'css-loader', 'postcss-loader', 'sass-loader'],
+                use: [stylesHandler, 'css-loader', 'postcss-loader', 'sass-loader', 'scss-loader'],
             },
             {
                 test: /\.css$/i,

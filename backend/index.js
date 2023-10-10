@@ -7,6 +7,7 @@ const port = 8080;
 
 app.get('/', (req, res) => {
     res.send('<h1>get response for the chat app</h1>');
+    // res.send('<h1>get response for the chat app </h1><p>some other paragraph</p>');
 });
 
 
