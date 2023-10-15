@@ -45,8 +45,23 @@ httpServer.listen(socketIOPort, () => {
 
 // postgressql drivers ----------------------------------------------------
 
-// for the express server
-const exppgdriver = require('pg-promise')();
-// this is the connection to the database through the express server
-const expdb = exppgdriver('postgres://postgres:mysecretpassword@chat-app-database:5432/postgres');
+// use the sequelize ORM to connect to the database
+const { Sequelize } = require('sequelize');
 
+// pass the .env variables to the connection string
+const CONN_STRING = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`;
+
+const sequelize = new Sequelize(CONN_STRING) // Example for postgres
+
+
+// test the connection function
+async function testConnection() {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection with the database has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+} 
+
+testConnection();

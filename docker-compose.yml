@@ -13,6 +13,8 @@ services:
       - node_modules_backend:/app/node_modules
     networks:
       - chat_app_network
+    env_file:
+      - ./backend/.env
     depends_on:
       database:
         condition: service_healthy
@@ -37,7 +39,7 @@ services:
       POSTGRES_PASSWORD: mysecretpassword
       POSTGRES_USER: postgres
       POSTGRES_DB: chat_app_db
-      MYSQL_ROOT_PASSWORD: mysecretpassword
+      
     ports:
       - "5432:5432"
     networks:
