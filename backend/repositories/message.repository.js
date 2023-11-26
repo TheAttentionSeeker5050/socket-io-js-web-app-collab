@@ -81,7 +81,6 @@ const MessageRepository = new class {
                 message.dataValues.conversationType = message.dataValues.messageType;
                 return message.dataValues;
             });
-
         });
         
         return messageArray;
