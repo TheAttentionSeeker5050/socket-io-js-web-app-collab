@@ -29,29 +29,33 @@ const Message = sequelize.define('Message', {
         allowNull: false,
         defaultValue: DataTypes.NOW
     },
-    conversationId: {
-        type: DataTypes.INTEGER,
+    author: {
+        type: DataTypes.STRING,
         allowNull: false
     },
-    ownerId: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
+    // conversationId: {
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false
+    // },
+    // ownerId: {
+    //     type: DataTypes.INTEGER,
+    //     allowNull: false
+    // }
 }, {
-    // add association to conversation model (id field on conversation) with foreign key for conversationId and user model (id field on user) with foreign key for ownerId
-    associate: (models) => {
-        Message.belongsTo(models.Conversation, { foreignKey: 'conversationId' });
-        Message.belongsTo(models.User, { foreignKey: 'ownerId' });
-    },
+    // // add association to conversation model (id field on conversation) with foreign key for conversationId and user model (id field on user) with foreign key for ownerId
+    // associate: (models) => {
+    //     Message.belongsTo(models.Conversation, { foreignKey: 'conversationId' });
+    //     Message.belongsTo(models.User, { foreignKey: 'ownerId' });
+    // },
 
-    // for every created message, update the conversation dateUpdated field
-    hooks: {
-        afterCreate: async (message) => {
-            const conversation = await sequelize.models.Conversation.findByPk(message.conversationId);
-            conversation.dateUpdated = Date.now();
-            await conversation.save();
-        }
-    },
+    // // for every created message, update the conversation dateUpdated field
+    // hooks: {
+    //     afterCreate: async (message) => {
+    //         const conversation = await sequelize.models.Conversation.findByPk(message.conversationId);
+    //         conversation.dateUpdated = Date.now();
+    //         await conversation.save();
+    //     }
+    // },
 
     // disable the default timestamp fields (createdAt and updatedAt)
     timestamps: false,
