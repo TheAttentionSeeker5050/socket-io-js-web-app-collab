@@ -54,11 +54,12 @@ const config = {
         onAfterSetupMiddleware: function (devServer) {
             const app = devServer.app;
             app.get('/', function (req, res) {
-              res.sendFile(path.join(__dirname, 'build/index.html'));
+              res.sendFile(path.join(__dirname, '/html/index.html'));
             });
+            
             // ... more routes
             app.get('*', function (req, res) {
-              res.sendFile(path.join(__dirname, 'build/error-404.html'));
+              res.sendFile(path.join(__dirname, '/html/error-404.html'));
             });
           },
     },

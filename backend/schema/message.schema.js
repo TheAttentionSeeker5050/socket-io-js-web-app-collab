@@ -19,6 +19,22 @@ const Message = sequelize.define('Message', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    imagePath:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    imageAlt:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    filePath:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    fileAlt:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     dateCreated: {
         type: DataTypes.DATE,
         allowNull: false,
