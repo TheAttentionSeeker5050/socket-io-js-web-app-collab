@@ -3,17 +3,25 @@
 const express = require('express');
 const cookieSession = require('cookie-session');
 
-// import http routes module, it is in the same directory as this file named routes.js
-const routes = require("./routes");
+// import http module
+const http = require('http');
 
-const expressPort = 8080; // port 8080 is the default port for express
+// import socket.io controller
+const { setupSocketIO, ensureImageDirectoryExists } = require('./socket/mainSocketController');
 
-// this will be needed to ensure that we have a public directory in our project
-const ensureImageDirectoryExists = require("./socket/mainSocketController").ensureImageDirectoryExists;
 
 // imports for retrieving public images
 const fs = require('fs');
 const path = require('path');
+
+// // import http routes module, it is in the same directory as this file named routes.js
+// const routes = require("./routes");
+
+// const expressPort = 8080; // port 8080 is the default port for express
+
+// this will be needed to ensure that we have a public directory in our project
+// const ensureImageDirectoryExists = require("./socket/mainSocketController").ensureImageDirectoryExists;
+
 
 
 // initiate express
@@ -33,8 +41,8 @@ expressApp.use(cookieSession({
 // this is used to parse the request body on express server calls as json
 expressApp.use(express.json());
 
-// import routes module
-expressApp.use("", routes);
+// // import routes module
+// expressApp.use("", routes);
 
 // make sure we have a public image directory
 ensureImageDirectoryExists();
@@ -42,25 +50,42 @@ ensureImageDirectoryExists();
 // Serve static files from the public directory
 expressApp.use(express.static(path.join(__dirname, 'public')));
 
-
-// start the express server
-expressApp.listen(expressPort, () => {
-    console.log(`listening on port ${expressPort}`);
-});
-
-
+// create an HTTP server and pass the express app
+const httpServer = http.createServer(expressApp);
 
 // ---------------------------------------------------------------
 // socket.io server
-const io = require('./socket/mainSocketController').io;
-const httpServer = require('./socket/mainSocketController').httpServer;
+// const { io } = require('./socket/mainSocketController')(httpServer); // passing the HTTP server instance to the Socket.IO setup
 
-const socketIOPort = 8081; // port 8081 is the default port for socket.io
+// Setup Socket.IO with the HTTP server
+const io = setupSocketIO(httpServer);
 
-// start the socket.io server on port 8081
-io.listen(socketIOPort, () => {
-    console.log(`socket.io listening on port ${socketIOPort}`);
+const port = 8080; // unified port for both express and socket.io
+
+// start the server on port 8080
+httpServer.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
 });
+
+
+// // start the express server
+// expressApp.listen(expressPort, () => {
+//     console.log(`listening on port ${expressPort}`);
+// });
+
+
+
+// // ---------------------------------------------------------------
+// // socket.io server
+// const io = require('./socket/mainSocketController').io;
+// const httpServer = require('./socket/mainSocketController').httpServer;
+
+// const socketIOPort = 8081; // port 8081 is the default port for socket.io
+
+// // start the socket.io server on port 8081
+// io.listen(socketIOPort, () => {
+//     console.log(`socket.io listening on port ${socketIOPort}`);
+// });
 
 
 // postgressql drivers ----------------------------------------------------
