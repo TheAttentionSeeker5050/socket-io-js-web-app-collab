@@ -4,3 +4,4 @@ build
 .env
 postgres-data
 backend/public/images/
+production.env
