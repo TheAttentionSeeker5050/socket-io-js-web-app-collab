@@ -5,11 +5,12 @@ import { io } from "socket.io-client";
 // import dotenv from 'dotenv';
 // dotenv.config();
 
-if (process.env.BACKEND_URL === undefined) {
-    console.log("BACKEND_URL is undefined");
-    process.env.BACKEND_URL = "https://socket-io-chat-app-public-files-serve.onrender.com";
-} 
-const socketConnectionUrl = process.env.BACKEND_URL;
+// if (process.env.BACKEND_URL === undefined) {
+//     console.log("BACKEND_URL is undefined");
+//     process.env.BACKEND_URL = "https://socket-io-chat-app-public-files-serve.onrender.com";
+// } 
+// const socketConnectionUrl = process.env.BACKEND_URL;
+const socketConnectionUrl =  "socket-io-chat-app-public-files-serve.onrender.com";
 // create a socket.io instance and establish a connection to the server 
 const socket = io(socketConnectionUrl);
 // const socket = io('https://socket-io-chat-app-public-files-serve.onrender.com');
