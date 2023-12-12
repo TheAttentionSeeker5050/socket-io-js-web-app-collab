@@ -43,8 +43,9 @@ const config = {
     ],
     devServer: {
         // open: true,
-        host: `${process.env.FRONTEND_URL}`,
-        allowedHosts: `${process.env.FRONTEND_URL}`,
+        // host: `${process.env.FRONTEND_URL}`,
+        allowedHosts: [`${process.env.FRONTEND_URL}`,"localhost",],
+        bonjour: true,
         // static: {
         //     directory: path.join(__dirname, 'build'),
         // },
