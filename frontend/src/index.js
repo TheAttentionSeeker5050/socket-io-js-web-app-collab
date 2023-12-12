@@ -5,9 +5,9 @@ import { io } from "socket.io-client";
 // import dotenv from 'dotenv';
 // dotenv.config();
 
-
+const socketConnectionUrl = process.env.BACKEND_URL;
 // create a socket.io instance and establish a connection to the server 
-const socket = io(`${process.env.BACKEND_URL}`);
+const socket = io(socketConnectionUrl);
 // const socket = io('https://socket-io-chat-app-public-files-serve.onrender.com');
 // const socket = io('http://localhost:8081');
 
