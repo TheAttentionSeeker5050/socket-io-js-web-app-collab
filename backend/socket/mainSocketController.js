@@ -115,7 +115,7 @@ function setupSocketIO(httpServer) {
             if (messageObj.messageType === 'image') {
                 
                 newMessage.imageAlt = messageObj.content;
-                newMessage.imagePath = `http://localhost:8080/images/${messageObj.imagePath}`
+                newMessage.imagePath = `${process.env.BACKEND_URL}/images/${messageObj.imagePath}`
             }
 
             // add the rest of the newMessage

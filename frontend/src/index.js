@@ -4,7 +4,9 @@ import { io } from "socket.io-client";
 
 
 // create a socket.io instance and establish a connection to the server 
-const socket = io('http://localhost:8081');
+const socket = io('https://socket-io-chat-app-public-files-serve.onrender.com');
+// const socket = io('http://localhost:8081');
+
 
 // reference DOM items
 const form = document.getElementById('form');
