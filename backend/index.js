@@ -37,6 +37,10 @@ expressApp.use(cookieSession({
     secure: false,
     domain: 'localhost',
 }));
+
+expressApp.get('/', function(req, res) {
+    res.send('<h1>get response for the chat app</h1>');
+});
   
 // this is used to parse the request body on express server calls as json
 expressApp.use(express.json());

@@ -42,11 +42,12 @@ const config = {
         }),
     ],
     devServer: {
-        open: true,
+        // open: true,
         host: `${process.env.FRONTEND_URL}`,
-        static: {
-            directory: path.join(__dirname, 'build'),
-        },
+        allowedHosts: `${process.env.FRONTEND_URL}`,
+        // static: {
+        //     directory: path.join(__dirname, 'build'),
+        // },
         // disableHostCheck: true,
         devMiddleware: {
             publicPath: '/',
