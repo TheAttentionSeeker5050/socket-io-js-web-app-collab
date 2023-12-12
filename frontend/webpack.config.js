@@ -45,7 +45,7 @@ const config = {
         // open: true,
         // host: `${process.env.FRONTEND_URL}`,
         // allowedHosts: [`${process.env.FRONTEND_URL}`,"localhost",],
-        allowedHosts: 'auto',
+        allowedHosts: 'all',
         bonjour: true,
         // static: {
         //     directory: path.join(__dirname, 'build'),
