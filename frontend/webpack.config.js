@@ -47,6 +47,7 @@ const config = {
         // static: {
         //     directory: path.join(__dirname, 'build'),
         // },
+        disableHostCheck: true,
         devMiddleware: {
             publicPath: '/',
             writeToDisk: true,
