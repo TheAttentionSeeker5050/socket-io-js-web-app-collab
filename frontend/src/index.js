@@ -2,8 +2,8 @@
 import $ from "jquery";
 import { io } from "socket.io-client";
 
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 
 // create a socket.io instance and establish a connection to the server 
