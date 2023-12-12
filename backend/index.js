@@ -38,12 +38,18 @@ expressApp.use(cookieSession({
     domain: 'localhost',
 }));
 
+// this is used to parse the request body on express server calls as json
+expressApp.use(express.json());
+
 expressApp.get('/', function(req, res) {
     res.send('<h1>get response for the chat app</h1>');
 });
+
+expressApp.get('/server-availability', (req, res) => {
+    // Respond with a simple JSON object indicating the server is available
+    res.json({ status: 'available' });
+});
   
-// this is used to parse the request body on express server calls as json
-expressApp.use(express.json());
 
 // // import routes module
 // expressApp.use("", routes);

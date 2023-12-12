@@ -13,8 +13,28 @@ import { io } from "socket.io-client";
 const socketConnectionUrl =  "socket-io-chat-app-public-files-serve.onrender.com";
 // create a socket.io instance and establish a connection to the server 
 const socket = io(socketConnectionUrl);
-// const socket = io('https://socket-io-chat-app-public-files-serve.onrender.com');
-// const socket = io('http://localhost:8081');
+
+async function checkServerAvailability() {
+    try {
+        const response = await fetch('https://socket-io-chat-app-public-files-serve.onrender.com/server-availability');
+        if (response.ok) {
+            // Server is available, remove the loading message
+            document.getElementById('backend-loading-msg').style.display = 'none';
+            // Stop checking server availability
+            clearInterval(intervalId); 
+        } else {
+            // Server is not yet available, show the loading message
+            document.getElementById('backend-loading-msg').textContent = 'Waiting for the server to start...';
+        }
+
+    } catch (error) {
+        // Handle any errors here (e.g., network error)
+        console.error('Error checking server availability:', error);
+    }
+}
+
+// Check server availability periodically (e.g., every few seconds)
+const intervalId = setInterval(checkServerAvailability, 3000);
 
 
 // reference DOM items
