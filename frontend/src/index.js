@@ -2,6 +2,9 @@
 import $ from "jquery";
 import { io } from "socket.io-client";
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 // create a socket.io instance and establish a connection to the server 
 const socket = io(`${process.env.BACKEND_URL}`);
