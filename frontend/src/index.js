@@ -181,6 +181,14 @@ socket.on('push-messages-to-client', (messagesArray) => {
             // the image's base64 string
             image.src = message.imagePath;
             image.alt = message.imageAlt;
+
+            // in case the image is not found
+            image.onerror = function () {
+                // Replace the image with a default image URL in case of an error
+                // create a default w3schools blank image
+                image.src = "https://socket-io-chat-app-public-files-serve.onrender.com/imgs/img-not-found.jpg";
+            };
+
             item.appendChild(image);
         }
         
