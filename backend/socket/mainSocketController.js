@@ -30,7 +30,7 @@ function setupSocketIO(httpServer) {
     // this will be used to add new socket.io events
     const io = new Server(httpServer, {
         cors: {
-            origin: "http://localhost:3000",
+            origin: `${process.env.FRONTEND_URL}`,
             methods: ["GET", "POST"]
         },
         rejectUnauthorized: false,
