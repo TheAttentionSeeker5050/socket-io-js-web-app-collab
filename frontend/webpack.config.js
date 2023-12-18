@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const DotenvWebpackPlugin = require("dotenv-webpack");
+// const DotenvWebpackPlugin = require("dotenv-webpack");
 
 const isProduction = process.env.NODE_ENV == 'development';
 
@@ -41,7 +41,7 @@ const config = {
                 {from:'./html/error.html', to:'error.html'},
             ]
         }),
-        new DotenvWebpackPlugin(),
+        // new DotenvWebpackPlugin(),
     ],
     devServer: {
         // open: true,

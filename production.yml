@@ -34,7 +34,7 @@ services:
 
   database:
     image: postgres:latest
-    container_name: chat-app-database
+    container_name: chat-app-database2
     environment:
       POSTGRES_PASSWORD: mysecretpassword
       POSTGRES_USER: postgres

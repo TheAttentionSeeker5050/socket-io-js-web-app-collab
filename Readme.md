@@ -24,6 +24,9 @@ To get this project running, we are using an array instead of a database to stor
 ### The express server
 Will make use of this later. 
 
+### Environment variables
+Please add a file called .env inside the backend folder with all the environment varables needed. Take the env_template as guidance.
+
 ## Frontend
 
 ### Socket.io client

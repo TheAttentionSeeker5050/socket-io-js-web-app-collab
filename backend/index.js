@@ -41,12 +41,17 @@ expressApp.use(express.json());
 const frontendUrl = process.env.FRONTEND_URL;
 
 expressApp.use(cors({ 
-    origin: frontendUrl 
+    origin: [frontendUrl, 'http://localhost:3001', "*:3001"],
 }));
 
 
 expressApp.get('/', function(req, res) {
-    res.send('<h1>get response for the chat app</h1>');
+    res.send(
+    "<div>" +
+        "<h1>Server is now running</h1>" +
+        `<a href="${frontendUrl}">Go to back frontend</a>` +
+    "</div>"
+    );
 });
 
 expressApp.get('/server-availability', (req, res) => {

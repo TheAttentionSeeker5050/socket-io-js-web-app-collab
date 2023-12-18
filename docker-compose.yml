@@ -19,22 +19,31 @@ services:
       database:
         condition: service_healthy
 
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8080/server-availability"]
+    #   interval: 5s
+    #   timeout: 10s
+    #   retries: 5
+    #   start_period: 20s
+
   frontend:
     build:
       context: ./frontend
       dockerfile: local.Dockerfile
     container_name: chat-app-frontend
     ports:
-      - "3000:3000"
+      - "3001:3001"
     volumes:
       - ./frontend:/app
       - node_modules_frontend:/app/node_modules
     networks:
       - chat_app_network
+  #   depends_on:
+  #     - backend
 
   database:
     image: postgres:latest
-    container_name: chat-app-database
+    container_name: chat-app-database2
     environment:
       POSTGRES_PASSWORD: mysecretpassword
       POSTGRES_USER: postgres

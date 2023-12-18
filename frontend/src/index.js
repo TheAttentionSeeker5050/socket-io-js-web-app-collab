@@ -2,21 +2,22 @@
 import $ from "jquery";
 import { io } from "socket.io-client";
 
-// import dotenv from 'dotenv';
-// dotenv.config();
 
-// if (process.env.BACKEND_URL === undefined) {
-//     console.log("BACKEND_URL is undefined");
-//     process.env.BACKEND_URL = "https://socket-io-chat-app-public-files-serve.onrender.com";
-// } 
-// const socketConnectionUrl = process.env.BACKEND_URL;
-const socketConnectionUrl =  "socket-io-chat-app-public-files-serve.onrender.com";
+// const socketConnectionUrl =  "socket-io-chat-app-public-files-serve.onrender.com";
+const socketConnectionUrl =  "localhost:8080";
+
+if (process.env.NODE_ENV === 'production') {
+    // Production mode
+    socketConnectionUrl =  "socket-io-chat-app-public-files-serve.onrender.com";
+}
+
 // create a socket.io instance and establish a connection to the server 
 const socket = io(socketConnectionUrl);
 
 async function checkServerAvailability() {
     try {
-        const response = await fetch('https://socket-io-chat-app-public-files-serve.onrender.com/server-availability');
+        const response = await fetch(`http://${socketConnectionUrl}/server-availability`);
+        // document.getElementById('backend-loading-msg').innerHTML = 'Waiting for the server to start...';
         if (response.ok) {
             // Server is available, remove the loading message
             document.getElementById('backend-loading-msg').style.display = 'none';
@@ -24,12 +25,15 @@ async function checkServerAvailability() {
             clearInterval(intervalId); 
         } else {
             // Server is not yet available, show the loading message
-            document.getElementById('backend-loading-msg').textContent = 'Waiting for the server to start...';
+            // Handle any errors here (e.g., network error)
+            document.getElementById('backend-loading-msg').innerHTML = 'Error checking server availability. <br>' + "Please go to the server main page then come back to the frontend using the link below. <br>" + `<a href="http://${socketConnectionUrl}/">Go to back frontend</a>`;
         }
 
     } catch (error) {
         // Handle any errors here (e.g., network error)
         console.error('Error checking server availability:', error);
+        document.getElementById('backend-loading-msg').innerHTML = 'Error checking server availability, returned error: ' + error + "<br> Please go to the server main page then come back to the frontend using the link below. <br>" + `<a href="http://${socketConnectionUrl}/">Go to back frontend</a>`;
+
     }
 }
 
