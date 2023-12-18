@@ -18,7 +18,9 @@ async function checkServerAvailability() {
     try {
         const response = await fetch(`${socketConnectionUrl}/server-availability`);
         // document.getElementById('backend-loading-msg').innerHTML = 'Waiting for the server to start...';
-        if (response.json().status === "available") {
+        // check for json response  {"status":"available"}
+        // if (response.status === 200 && response.json().status === 'available') {
+            if (response.json().status === 'available') {
             // Server is available, remove the loading message
             document.getElementById('backend-loading-msg').style.display = 'none';
             // Stop checking server availability
@@ -31,7 +33,7 @@ async function checkServerAvailability() {
 
     } catch (error) {
         // Handle any errors here (e.g., network error)
-        console.error('Error checking server availability:', error);
+        // console.error('Error checking server availability:', error);
         document.getElementById('backend-loading-msg').innerHTML = 'Error checking server availability, returned error: ' + error + "<br> Please go to the server main page then come back to the frontend using the link below. <br>" + `<a href="http://${socketConnectionUrl}/">Go to back frontend</a>`;
 
     }
