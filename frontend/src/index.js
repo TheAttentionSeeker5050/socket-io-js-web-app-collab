@@ -31,8 +31,8 @@ async function checkServerAvailability() {
 
     } catch (error) {
         // Handle any errors here (e.g., network error)
-        console.error('Error checking server availability:', error);
-        // document.getElementById('backend-loading-msg').innerHTML = 'Error checking server availability, returned error: ' + error + "<br> Please go to the server main page then come back to the frontend using the link below. <br>" + `<a href="https://${socketConnectionUrl}/">Go to back frontend</a>`;
+        // console.error('Error checking server availability:', error);
+        document.getElementById('backend-loading-msg').innerHTML = 'Error checking server availability, retrying...';
 
     }
 }
