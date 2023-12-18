@@ -16,9 +16,9 @@ const socket = io(socketConnectionUrl);
 
 async function checkServerAvailability() {
     try {
-        const response = await fetch(`http://${socketConnectionUrl}/server-availability`);
+        const response = await fetch(`${socketConnectionUrl}/server-availability`);
         // document.getElementById('backend-loading-msg').innerHTML = 'Waiting for the server to start...';
-        if (response.ok) {
+        if (response.json().status === "available") {
             // Server is available, remove the loading message
             document.getElementById('backend-loading-msg').style.display = 'none';
             // Stop checking server availability
