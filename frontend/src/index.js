@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 
 
 // const socketConnectionUrl =  "socket-io-chat-app-public-files-serve.onrender.com";
-const socketConnectionUrl =  "localhost:8080";
+let socketConnectionUrl =  "localhost:8080";
 
 if (process.env.NODE_ENV === 'production') {
     // Production mode

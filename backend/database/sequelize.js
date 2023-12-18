@@ -3,7 +3,7 @@
 // use the sequelize ORM to connect to the database
 const { Sequelize } = require('sequelize');
 
-const CONN_STRING = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`;
+let CONN_STRING = `postgres://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DB}`;
 
 // pass the .env variables to the connection string
 if (process.env.NODE_ENV === 'production') {
